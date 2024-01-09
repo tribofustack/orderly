@@ -61,9 +61,35 @@ Once it's up, the Swagger documentation can be accessed at `http://localhost:300
 
 Prerequisites: Ensure you have a tool for running local Kubernetes clusters installed.
 
+## Running kubernetes
+
+```bash
+# create namespace orderly
+$ kubectl create ns orderly
+
+# set orderly namespace to default (IN GCP)
+$ kubens orderly
+# set orderly namespace to default with kubectl
+$ kubectl config set-context --current --namespace=orderly
+
+# cache
+$ kubectl apply -f k8s/cache
+
+# database
+$ kubectl apply -f k8s/db
+
+# api
+$ kubectl apply -f k8s/api
+```
+
+### Kubernetes Architecture on GCP
+
 <div align="center">
-  <img src="./.github/k8s.png" alt="Kubernetes" />
+  <img src="./.github/k8s-gcp.png" alt="K8S Diagram on GoogleCloud"  width="700"/>
 </div>
+
+### Kubernetes Architecture local
+
   
 ⚠️ **Wait** until the pods are ready, you can see the process with this command: ``` sudo kubectl get pods -o wide ```
 
@@ -76,10 +102,8 @@ Prerequisites: Ensure you have a tool for running local Kubernetes clusters inst
 
 With the **INTERNAL-IP + api-service PORT** the Swagger documentation can be accessed at `<INTERNAL-IP>:30000/`.
 
-### Kubernetes Architecture
-
 <div align="center">
-  <img src="./.github/k8s-node.png" alt="Kubernetes" />
+  <img src="./.github/k8s-local.png" alt="K8S Diagram"  width="700"/>
 </div>
 
 ## Database ER Diagram

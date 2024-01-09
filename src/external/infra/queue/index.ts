@@ -1,3 +1,3 @@
-import { bullModule } from './bullmq';
+import { QueueModule } from './bullmq';
 
-export default bullModule;
+export default QueueModule;

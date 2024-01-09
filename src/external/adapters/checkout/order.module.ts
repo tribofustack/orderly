@@ -15,28 +15,28 @@ import { OrdersService } from './order.service';
 import { OrderItemModel } from './sequelize/order-item-model';
 import { OrderModel } from './sequelize/order-model';
 import { OrderSequelizeRepository } from './sequelize/order-sequelize.repository';
+import QueueModule from 'src/external/infra/queue';
+import { OrderConsumePayment } from './bullmq/consumers/payment.consumer';
 
 @Module({
   imports: [
     SequelizeModule.forFeature([OrderModel, OrderItemModel, ProductModel]),
-    BullModule.registerQueue({
-      name: 'orders',
-      defaultJobOptions: { attempts: 2 },
-    }),
+    QueueModule,
   ],
   controllers: [OrderController],
   providers: [
     OrdersService,
     ProductsService,
     ProductSequelizeRepository,
-    { provide: 'ProductRepository', useExisting: ProductSequelizeRepository },
     OrderSequelizeRepository,
-    { provide: 'OrderRepository', useExisting: OrderSequelizeRepository },
     PublishOrderRequestListener,
     ChangeOrderStatusListener,
     OrderConsumer,
-    { provide: 'EventEmitter', useExisting: EventEmitter2 },
+    OrderConsumePayment,
     Uuid,
+    { provide: 'ProductRepository', useExisting: ProductSequelizeRepository },
+    { provide: 'OrderRepository', useExisting: OrderSequelizeRepository },
+    { provide: 'EventEmitter', useExisting: EventEmitter2 },
     { provide: 'IdGenerator', useExisting: Uuid },
   ],
 })

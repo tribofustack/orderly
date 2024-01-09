@@ -1,10 +1,10 @@
 export interface IHttpRequest {
+  url?: string;
   body?: any;
-  headers?: unknown;
-  query?: unknown;
   params?: any;
+  headers?: any;
+  query?: any;
 }
-
 export interface IHttpResponse {
   status: number;
   body: any;
