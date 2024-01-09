@@ -11,7 +11,7 @@ export class CustomersService {
     @Inject('CustomerRepository')
     private customerRepository: ICustomerRepository,
 
-    @Inject('IdentifierGenerator')
+    @Inject('IdGenerator')
     private idGenerator: IIdentifierGenerator,
   ) {}
 

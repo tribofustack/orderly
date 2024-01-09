@@ -7,12 +7,14 @@ import { ProductModel } from 'src/external/adapters/product/sequelize/product.mo
 import { DatabaseException } from 'src/internal/application/errors';
 
 import { connection } from './connections';
+import { CategoryModel } from 'src/external/adapters/product/sequelize/category.model';
 
 export const sequelizeModels = [
   CustomerModel,
   ProductModel,
   OrderModel,
   OrderItemModel,
+  CategoryModel,
 ];
 
 export const sequelizeModule = SequelizeModule.forRoot({

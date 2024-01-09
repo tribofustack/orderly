@@ -10,4 +10,9 @@ export const env = {
 
   cacheHost: String(process.env.CACHE_HOST),
   cachePort: Number(process.env.CACHE_PORT),
+
+  paymentIntegrationUrl: String(process.env.MP_URL),
+  paymentIntegrationClientSecret: String(process.env.MP_CLIENT_SECRET),
+  paymentIntegrationGrantType: String(process.env.MP_GRANT_TYPE),
+  paymentIntegrationRefreshToken: String(process.env.MP_REFRESH_TOKEN),
 };

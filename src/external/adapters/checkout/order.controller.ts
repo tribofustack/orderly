@@ -9,6 +9,7 @@ import { CreateOrderDto } from 'src/internal/domain/checkout/dto/create-order.dt
 
 import { ProductsService } from '../product/product.service';
 import { OrdersService } from './order.service';
+import { CustomersService } from '../customer/customer.service';
 
 @ApiTags('Order')
 @Controller('orders')
@@ -16,6 +17,7 @@ export class OrderController {
   constructor(
     private readonly ordersService: OrdersService,
     private readonly productsService: ProductsService,
+    private readonly customerService: CustomersService,
   ) {}
 
   @ApiOperation({ summary: 'Create Order' })
@@ -29,7 +31,7 @@ export class OrderController {
   async create(@Body() createOrderDto: CreateOrderDto) {
     try {
       await this.productsService.verifyProductQuantity(createOrderDto.products);
-      return this.ordersService.create(createOrderDto);
+      return await this.ordersService.create(createOrderDto);
     } catch (err) {
       return responseError(err);
     }
@@ -38,9 +40,9 @@ export class OrderController {
   @ApiOperation({ summary: 'Prepare Order' })
   @ApiResponse({ status: 200 })
   @Post(':orderId/prepare')
-  prepare(@Param('orderId') orderId: string) {
+  async prepare(@Param('orderId') orderId: string) {
     try {
-      return this.ordersService.prepare(orderId);
+      return await this.ordersService.prepare(orderId);
     } catch (err) {
       return responseError(err);
     }
@@ -49,9 +51,9 @@ export class OrderController {
   @ApiOperation({ summary: 'withdrawn' })
   @ApiResponse({ status: 200 })
   @Post(':orderId/withdrawn')
-  withdrawn(@Param('orderId') orderId: string) {
+  async withdrawn(@Param('orderId') orderId: string) {
     try {
-      return this.ordersService.withdrawn(orderId);
+      return await this.ordersService.withdrawn(orderId);
     } catch (err) {
       return responseError(err);
     }
@@ -72,13 +74,32 @@ export class OrderController {
 		type: String
   })
   @Get()
-  getOrders(
+  async getOrders(
     @Query('customerId') customerId?: string,
     @Query('status') status?: string,
   ) {
     try {
-      return this.ordersService.findAll(customerId, status);
+      return await this.ordersService.findAll(customerId, status);
     } catch (err) {
+      return responseError(err);
+    }
+  }
+
+  @Get(':id/status')
+  async getStatus(@Param('id') id: string) {
+    try {
+      return await this.ordersService.getStatus(id);
+    } catch (err: any) {
+      return responseError(err);
+    }
+  }
+
+  @Get('customer/:id')
+  async getCustomerReport(@Param('id') id: string) {
+    try {
+      await this.customerService.findById(id);
+      return await this.ordersService.getCustomerReport(id);
+    } catch (err: any) {
       return responseError(err);
     }
   }

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: api-container
-        image: dealmachine/orderly:2
+        image: dealmachine/orderly:3
         workingDir: /usr/api
         resources:
           requests:

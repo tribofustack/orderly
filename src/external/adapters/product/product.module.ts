@@ -8,9 +8,11 @@ import { ProductController } from './product.controller';
 import { ProductsService } from './product.service';
 import { ProductSequelizeRepository } from './sequelize/product-sequelize.repository';
 import { ProductModel } from './sequelize/product.model';
+import { CategoryModel } from './sequelize/category.model';
+import { CategorySeeder } from './sequelize/seeders/category-seeder';
 
 @Module({
-  imports: [SequelizeModule.forFeature([ProductModel])],
+  imports: [SequelizeModule.forFeature([ProductModel, CategoryModel])],
   controllers: [ProductController],
   providers: [
     ProductsService,
@@ -20,6 +22,7 @@ import { ProductModel } from './sequelize/product.model';
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
     Uuid,
     { provide: 'IdGenerator', useExisting: Uuid },
+    CategorySeeder,
   ],
 })
 export class ProductModule {}

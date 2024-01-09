@@ -13,6 +13,7 @@ export class ChangeOrderStatusListener {
   @OnEvent('order-status.changed')
   async handle(event: ChangedOrderStatusEvent) {
     const { orderId, status } = event.data;
+    if (status === 'Pronto') console.log('Finished.');
     await this.orderRepository.changeStatus(orderId, status);
   }
 }

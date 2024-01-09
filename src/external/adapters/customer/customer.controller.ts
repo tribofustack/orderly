@@ -23,9 +23,9 @@ export class CustomerController {
     type: CreatedCustomerSwagger,
   })
   @Post()
-  create(@Body() createCustomerDto: CreateCustomerDto) {
+  async create(@Body() createCustomerDto: CreateCustomerDto) {
     try {
-      return this.customersService.create(createCustomerDto);
+      return await this.customersService.create(createCustomerDto);
     } catch (err) {
       return responseError(err);
     }

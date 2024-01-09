@@ -35,7 +35,7 @@ import { CustomerModel } from './sequelize/customer.model';
     PublishCustomerListener,
     { provide: 'EventEmitter', useExisting: EventEmitter2 },
     Uuid,
-    { provide: 'IdentifierGenerator', useExisting: Uuid },
+    { provide: 'IdGenerator', useExisting: Uuid },
   ],
 })
 export class CustomerModule {}

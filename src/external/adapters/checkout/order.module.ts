@@ -15,28 +15,40 @@ import { OrdersService } from './order.service';
 import { OrderItemModel } from './sequelize/order-item-model';
 import { OrderModel } from './sequelize/order-model';
 import { OrderSequelizeRepository } from './sequelize/order-sequelize.repository';
+import QueueModule from 'src/external/infra/queue';
+import { OrderConsumePayment } from './bullmq/consumers/payment.consumer';
+import { CustomerModel } from '../customer/sequelize/customer.model';
+import { CategoryModel } from '../product/sequelize/category.model';
+import { CustomersService } from '../customer/customer.service';
+import { CustomerSequelizeRepository } from '../customer/sequelize/customer-sequelize.repository';
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([OrderModel, OrderItemModel, ProductModel]),
-    BullModule.registerQueue({
-      name: 'orders',
-      defaultJobOptions: { attempts: 2 },
-    }),
+    SequelizeModule.forFeature([OrderModel,
+      OrderItemModel,
+      ProductModel,
+      CustomerModel,
+      CategoryModel,
+    ]),
+    QueueModule,
   ],
   controllers: [OrderController],
   providers: [
     OrdersService,
     ProductsService,
+    CustomersService,
     ProductSequelizeRepository,
-    { provide: 'ProductRepository', useExisting: ProductSequelizeRepository },
     OrderSequelizeRepository,
-    { provide: 'OrderRepository', useExisting: OrderSequelizeRepository },
+    CustomerSequelizeRepository,
     PublishOrderRequestListener,
     ChangeOrderStatusListener,
     OrderConsumer,
-    { provide: 'EventEmitter', useExisting: EventEmitter2 },
+    OrderConsumePayment,
     Uuid,
+    { provide: 'ProductRepository', useExisting: ProductSequelizeRepository },
+    { provide: 'OrderRepository', useExisting: OrderSequelizeRepository },
+    { provide: 'CustomerRepository', useExisting: CustomerSequelizeRepository },
+    { provide: 'EventEmitter', useExisting: EventEmitter2 },
     { provide: 'IdGenerator', useExisting: Uuid },
   ],
 })

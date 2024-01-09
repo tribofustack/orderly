@@ -1,309 +1,648 @@
 {
-  "info": {
-    "_postman_id": "04fceae3-4a88-47f4-8c8d-902707cd059e",
-    "name": "orderly",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "13574011"
-  },
-  "item": [
-    {
-      "name": "products",
-      "item": [
-        {
-          "name": "create product",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"produto 1\",\n    \"description\": \"descricao 1\",\n    \"category\": \"Feijão\",\n    \"price\": 1111,\n    \"quantity\": 12\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3000/products",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["products"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "edit product",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"name 1\",\n    \"description\": \"description 2\",\n    \"category\": \"category 1\",\n    \"price\": 1\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3000/products/:id",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["products", ":id"],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": "79bedad9-8b21-4456-af31-98bbfc6d928a"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "remove product",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/products/:id",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["products", ":id"],
-              "variable": [
-                {
-                  "key": "id",
-                  "value": "d6854a02-4cd1-40d1-988a-c7548fd7f772"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get products by category",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/products/category/:category",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["products", "category", ":category"],
-              "variable": [
-                {
-                  "key": "category",
-                  "value": "Feijão"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "customers",
-      "item": [
-        {
-          "name": "create/identify customer",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n   \"name\": \"douglas\",\n   \"cpf\": \"123456666\",\n   \"email\": \"douglas@gmail.com\"\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3000/customers",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["customers"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get/identify customer by cpf",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/customers/:cpf",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "customers",
-                ":cpf"
-              ],
-              "variable": [
-                {
-                  "key": "cpf",
-                  "value": "123456666"
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "orders",
-      "item": [
-        {
-          "name": "create order",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"customerId\": \"90c44ff2-f792-4e49-bff5-a9c21216897e\",\n    \"products\": [\n        {\n            \"id\": \"20fe350d-6531-4a1a-86a8-b01fdba8ec8f\",\n            \"quantity\": 1,\n            \"price\": 11\n        }\n    ]\n}"
-            },
-            "url": {
-              "raw": "http://localhost:3000/orders",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["orders"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "prepare order",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/orders/:orderId/prepare",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["orders", ":orderId", "prepare"],
-              "variable": [
-                {
-                  "key": "orderId",
-                  "value": "d1651512-0911-424a-98b2-b3e6243ee576"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "withdrawn order",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/orders/:orderId/withdrawn",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["orders", ":orderId", "withdrawn"],
-              "variable": [
-                {
-                  "key": "orderId",
-                  "value": "d23bd5ff-bfbd-44f6-b3cf-5d44b44c50c1"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get orders",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text",
-                "disabled": true
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/orders/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["orders", ""],
-              "query": [
-                {
-                  "key": "customerId",
-                  "value": "8ba4aa81-f6fe-4a22-b4d2-0c6a55444cf0",
-                  "disabled": true
-                },
-                {
-                  "key": "status",
-                  "value": "Recebido",
-                  "disabled": true
-                }
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "04fceae3-4a88-47f4-8c8d-902707cd059e",
+		"name": "orderly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13574011"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "categories",
+					"item": [
+						{
+							"name": "get categories",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{url}}:{{port}}/products/category",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"products",
+										"category"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"produto 2\",\n    \"description\": \"descricao 2\",\n    \"categoryId\": \"eec1af31-b154-4fe2-9323-999836d19e28\",\n    \"price\": 10,\n    \"quantity\": 10\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/products",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"name 1\",\n    \"description\": \"description 2\",\n    \"categoryId\": \"4e86d7fa-78b1-4116-bb81-2fe4d8634418\",\n    \"price\": 1\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/products/:id",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "842b62ab-9992-44d9-936c-ae921807ea57"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/products/:id",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get products by category",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/products/category/:category",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"products",
+								"category",
+								":category"
+							],
+							"variable": [
+								{
+									"key": "category",
+									"value": "4e86d7fa-78b1-4116-bb81-2fe4d8634418"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customers",
+			"item": [
+				{
+					"name": "create/identify customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"name\": \"teste\",\n   \"cpf\": \"123456556\",\n   \"email\": \"teste@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/customers",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"teste\",\n   \"cpf\": \"123456556\",\n   \"email\": \"teste@gmail.com\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/customers",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "104"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"68-H6hv3UQB/Y3rTiOKJ8Zh84qNf0E\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 28 Nov 2023 20:06:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"3ec155b3-2605-4172-809d-ccacb27d47a4\",\n    \"cpf\": \"123456556\",\n    \"name\": \"teste\",\n    \"email\": \"teste@gmail.com\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get customer by cpf",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/customers/:cpf",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"customers",
+								":cpf"
+							],
+							"variable": [
+								{
+									"key": "cpf",
+									"value": "123456556"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "create order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": \"ee2849b4-8a0a-4aa2-8a3a-ef290c66fc2b\",\n    \"products\": [\n        {\n            \"id\": \"8aa2c198-c847-4c5f-b492-d93d2b8bf9a1\",\n            \"quantity\": 9,\n            \"price\": 100\n        },\n        {\n            \"id\": \"683b9f95-2775-42ef-b115-3746b3b225f0\",\n            \"quantity\": 1,\n            \"price\": 8\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "prepare order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/orders/:orderId/prepare",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders",
+								":orderId",
+								"prepare"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "cc7a2a2b-1453-4338-8f7b-cc36c87e1670"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "withdrawn order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/orders/:orderId/withdrawn",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders",
+								":orderId",
+								"withdrawn"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "cc7a2a2b-1453-4338-8f7b-cc36c87e1670"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/orders/",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders",
+								""
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "7f46a520-7650-436b-bb38-54fc152b706c",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Pronto",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get report by customerId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/orders/customer/:id",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders",
+								"customer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "81ad81f3-934d-4137-9a10-4bd75d4fe672"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/orders/:id/status",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"orders",
+								":id",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "69c62aa4-9407-4beb-af08-882d9a8b861b"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "aprove payment by orderId",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": \"2265250e-f632-4684-860c-5cb4cb91a2c1\",\n    \"products\": [\n        {\n            \"id\": \"bb8e8845-8f06-4594-a8bc-4efd5aa70feb\",\n            \"quantity\": 1,\n            \"price\": 101\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/payments/order/:id/approve",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"payments",
+								"order",
+								":id",
+								"approve"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cc7a2a2b-1453-4338-8f7b-cc36c87e1670"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel payment by orderId",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": \"2265250e-f632-4684-860c-5cb4cb91a2c1\",\n    \"products\": [\n        {\n            \"id\": \"bb8e8845-8f06-4594-a8bc-4efd5aa70feb\",\n            \"quantity\": 1,\n            \"price\": 101\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}/payments/order/:id/cancel",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"payments",
+								"order",
+								":id",
+								"cancel"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "cc7a2a2b-1453-4338-8f7b-cc36c87e1670"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get payment by orderId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}/payments/order/:id",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"payments",
+								"order",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "0124921f-c1da-4e0c-83a9-2b2862584b62"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "3000",
+			"type": "string"
+		}
+	]
 }

@@ -2,24 +2,52 @@ import { NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Op } from 'sequelize';
 import { Product } from 'src/internal/domain/product/entities/product.entity';
-import { IProductRepository } from 'src/internal/domain/product/repositories/product.repository';
+import { IProductRepository, categoriesToCreate } from 'src/internal/domain/product/repositories/product.repository';
 
 import { ProductModel } from './product.model';
+import { CategoryModel } from './category.model';
+import { Category } from 'src/internal/domain/product/entities/category.entity';
 
 export class ProductSequelizeRepository implements IProductRepository {
   constructor(
     @InjectModel(ProductModel)
     private model: typeof ProductModel,
+    @InjectModel(CategoryModel)
+    private categoryModel: typeof CategoryModel,
   ) {}
+
+  async createCategories(
+    categoriesToCreate: categoriesToCreate,
+  ): Promise<void> {
+    Promise.all([
+      categoriesToCreate.map(async (category) =>
+        this.categoryModel.create(category),
+      ),
+    ]);
+  }
+
+  async getCategories(): Promise<Category[]> {
+    const categories = await this.categoryModel.findAll();
+    if (categories.length < 1)
+      throw new NotFoundException('categories not exists.');
+    return categories.map(
+      (c) =>
+        new Category({
+          id: c.id,
+          name: c.name,
+          description: c.description,
+        }),
+    );
+  }
 
   async updateQuantity(id: string, quantity: number): Promise<number> {
     await this.model.update({ quantity }, { where: { id } });
     return quantity;
   }
 
-  async findByCategory(category: string): Promise<Product[]> {
+  async findByCategory(categoryId: string): Promise<Product[]> {
     const productModel = await this.model.findAll({
-      where: { category: { [Op.iLike]: category } },
+      where: { categoryId },
     });
     if (!productModel || productModel.length === 0)
       throw new NotFoundException('product category not exists.');
@@ -27,7 +55,7 @@ export class ProductSequelizeRepository implements IProductRepository {
     return productModel.map(pm => {
       return new Product({
         id: pm.id,
-        category: pm.category,
+        categoryId: pm.categoryId,
         description: pm.description,
         name: pm.name,
         price: Number(pm.price),
@@ -42,7 +70,7 @@ export class ProductSequelizeRepository implements IProductRepository {
 
     return new Product({
       id: productModel.id,
-      category: productModel.category,
+      categoryId: productModel.categoryId,
       description: productModel.description,
       name: productModel.name,
       price: productModel.price,
@@ -57,7 +85,7 @@ export class ProductSequelizeRepository implements IProductRepository {
       return new Product({
         id: p.id,
         name: p.name,
-        category: p.category,
+        categoryId: p.categoryId,
         description: p.description,
         price: p.price,
         quantity: p.quantity,
@@ -70,7 +98,7 @@ export class ProductSequelizeRepository implements IProductRepository {
 
     return new Product({
       id: productModel.id,
-      category: productModel.category,
+      categoryId: productModel.categoryId,
       description: productModel.description,
       name: productModel.name,
       price: productModel.price,
@@ -84,10 +112,10 @@ export class ProductSequelizeRepository implements IProductRepository {
 
   async update(
     id: string,
-    { name, price, description, category }: Partial<Product>,
+    { name, price, description, categoryId }: Partial<Product>,
   ): Promise<void> {
     await this.model.update(
-      { name, price, description, category },
+      { name, price, description, categoryId },
       { where: { id } },
     );
   }

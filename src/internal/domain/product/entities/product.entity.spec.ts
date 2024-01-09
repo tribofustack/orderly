@@ -11,7 +11,7 @@ describe('Product Entity', () => {
         // act
         product = new Product({
           id: null,
-          category: 'category-test',
+          categoryId: 'category-test',
           description: 'description-test',
           name: 'name-test',
           price: 3.5,
@@ -30,7 +30,7 @@ describe('Product Entity', () => {
       try {
         product = new Product({
           id: 'id-test',
-          category: 'category-test',
+          categoryId: 'category-test',
           description: 'description-test',
           name: null,
           price: 3.5,

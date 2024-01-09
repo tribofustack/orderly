@@ -1,5 +1,6 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { IProduct } from 'src/internal/domain/product/entities/product.entity';
+import { CategoryModel } from './category.model';
 
 export interface IProductModel extends IProduct {}
 
@@ -32,13 +33,16 @@ export class ProductModel extends Model implements IProductModel {
   })
   declare description: string;
 
+  @ForeignKey(() => CategoryModel)
   @Column({
-    field: 'category',
-    type: DataType.STRING,
+    field: 'category_id',
     allowNull: false,
-    unique: false,
+    type: DataType.STRING,
   })
-  declare category: string;
+  declare categoryId: string;
+
+  @BelongsTo(() => CategoryModel)
+  declare category: CategoryModel;
 
   @Column({
     field: 'price',

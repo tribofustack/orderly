@@ -24,44 +24,55 @@ export class ProductController {
   @ApiBody({ type: CreateProductSwagger })
   @ApiResponse({ status: 201, description: 'Product successfully created.', type: CreatedProductSwagger })
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
+  async create(@Body() createProductDto: CreateProductDto) {
     try {
-      return this.productsService.create(createProductDto);
+      return await this.productsService.create(createProductDto);
     } catch (err: any) {
-      responseError(err);
+      return responseError(err);
     }
   }
 
   @ApiOperation({ summary: 'Update Product' })
   @ApiResponse({ status: 201, description: 'Product successfully Updated.' })
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     try {
-      return this.productsService.update(id, updateProductDto);
+      return await this.productsService.update(id, updateProductDto);
     } catch (err: any) {
-      responseError(err);
+      return responseError(err);
     }
   }
 
   @ApiOperation({ summary: 'Delete Product' })
   @ApiResponse({ status: 201, description: 'Product successfully Deleted.' })
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  async delete(@Param('id') id: string) {
     try {
-      return this.productsService.delete(id);
+      return await this.productsService.delete(id);
     } catch (err: any) {
-      responseError(err);
+      return responseError(err);
     }
   }
 
   @ApiOperation({ summary: 'Get Product' })
   @ApiResponse({ status: 200 })
-  @Get('category/:category')
-  async findByCategory(@Param('category') category: string) {
+  @Get('category/:id')
+  async findByCategory(@Param('id') id: string) {
     try {
-      return await this.productsService.findByCategory(category);
+      return await this.productsService.findByCategory(id);
     } catch (err: any) {
-      responseError(err);
+      return responseError(err);
+    }
+  }
+
+  @ApiOperation({ summary: 'Get Categories' })
+  @ApiResponse({ status: 200 })
+  @Get('category/')
+  async getCategories() {
+    try {
+      return await this.productsService.getCategories();
+    } catch (err: any) {
+      return responseError(err);
     }
   }
 }

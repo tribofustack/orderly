@@ -23,17 +23,16 @@ export class ProductsService {
   ) {}
 
   async create(createProductDto: CreateProductDto) {
-    // se um produto já existe ele adiciona quantidade
-    const product = new Product({
-      id: this.idGenerator.generate(),
-      name: createProductDto.name,
-      category: createProductDto.category,
-      description: createProductDto.description,
-      price: createProductDto.price,
-      quantity: createProductDto.quantity,
-    });
-    await this.productRepository.create(product);
-    return product;
+      const product = new Product({
+        id: this.idGenerator.generate(),
+        name: createProductDto.name,
+        categoryId: createProductDto.categoryId,
+        description: createProductDto.description,
+        price: createProductDto.price,
+        quantity: createProductDto.quantity,
+      });
+      await this.productRepository.create(product);
+      return product;
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
@@ -62,7 +61,11 @@ export class ProductsService {
     return this.productRepository.delete(id);
   }
 
-  async findByCategory(category: string) {
-    return await this.productRepository.findByCategory(category);
+  async findByCategory(id: string) {
+    return await this.productRepository.findByCategory(id);
+  }
+
+  async getCategories() {
+    return this.productRepository.getCategories();
   }
 }

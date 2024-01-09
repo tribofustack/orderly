@@ -8,7 +8,6 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-
 import { CustomerModel } from '../../customer/sequelize/customer.model';
 import { OrderItemModel } from './order-item-model';
 import { CreationOptional } from 'sequelize';
@@ -21,7 +20,10 @@ interface IOrderModel {
   orderItems: OrderItemModel[];
 }
 
-@Table({ tableName: 'orders' })
+@Table({ 
+  tableName: 'orders',
+  timestamps: true,
+})
 class OrderModel extends Model implements IOrderModel {
   @Column({
     field: 'id',
